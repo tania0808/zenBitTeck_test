@@ -1,24 +1,16 @@
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { Message } from './message.entity';
 import { MessageService } from './message.service';
-import { Body, Controller, Get, Post } from '@nestjs/common';
 
 @Controller('messages')
 export class MessageController {
-  constructor(private readonly messsageservice: MessageService) {}
-
-  @Get()
-  welcome() {
-    return 'Hello';
-  }
+  constructor(private readonly messsageService: MessageService) {}
 
   @Post()
-  reachOut(
-    @Body('name') name: string,
-    @Body('email') email: string,
-    @Body('message') message: string,
-  ) {
-    const messageId = this.messsageservice.sendMessage(name, email, message);
-    return {
-      id: messageId,
-    };
+  async createMessage(@Res() response, @Body() message: Message) {
+    const newMessage = await this.messsageService.createMessage(message);
+    return response.status(HttpStatus.CREATED).json({
+      newMessage,
+    });
   }
 }

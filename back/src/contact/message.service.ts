@@ -1,17 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Message } from './message.model';
-import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Message } from './message.entity';
 
 @Injectable()
 export class MessageService {
-  private messages: Message[] = [];
+  constructor(
+    @InjectRepository(Message)
+    private messagesRepository: Repository<Message>,
+  ) {}
 
-  sendMessage(name: string, email: string, message: string) {
-    const id = uuidv4();
-    const newMessage = new Message(id, name, email, message);
-
-    this.messages.push(newMessage);
-
-    return id;
+  createMessage(message: Message): Promise<Message> {
+    return this.messagesRepository.save(message);
   }
 }
