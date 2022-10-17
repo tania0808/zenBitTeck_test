@@ -1,9 +1,8 @@
+import FeedBack from './pages/FeedBack/FeedBack';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <FeedBack/>
   );
 }
 
