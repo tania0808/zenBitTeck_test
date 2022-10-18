@@ -1,7 +1,7 @@
-import React from "react";
 import { Wrapper } from "./FeedbackForm.styled";
 import Button from "../UI/Button/Button";
 import axios from "axios";
+import yellowUp from '../../assets/images/yellowUp.svg';
 
 export const FeedbackForm = () => {
   const onSubmit = async (e) => {
@@ -18,6 +18,7 @@ export const FeedbackForm = () => {
 
   return (
     <Wrapper>
+      <img className="smiley" src={yellowUp} alt="yellow smiley" />
       <h1>Reach out to us!</h1>
       <form onSubmit={onSubmit}>
         <div>

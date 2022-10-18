@@ -13,7 +13,7 @@ export const FooterS = styled.footer`
 
   .pink {
     position: absolute;
-    bottom: -1.6rem;
+    bottom: -2.6rem;
     width: 20%;
     max-width: 250px;
     min-width: 120px;
@@ -50,5 +50,10 @@ export const SocialIcons = styled.ul`
   a {
     color: #686262;
     font-size: 20px;
+    transition: all 0.2s ease-in;
+
+    :hover {
+      color: #fad34f;
+    }
   }
 `;
