@@ -23,15 +23,13 @@ export const FooterS = styled.footer`
     right: -2rem;
     width: 10%;
     min-width: 100px;
-
   }
   .green {
     position: absolute;
-    top: -20px; 
+    top: -20px;
     right: 10%;
     width: 6%;
     min-width: 60px;
-
   }
 `;
 
@@ -40,8 +38,6 @@ export const SocialIcons = styled.ul`
   margin: 0 auto;
   display: flex;
   gap: 20px;
-
-  
 
   li {
     list-style-type: none;

@@ -1,19 +1,33 @@
-import { Wrapper } from "./FeedbackForm.styled";
-import Button from "../UI/Button/Button";
+import { useState } from "react";
 import axios from "axios";
-import yellowUp from '../../assets/images/yellowUp.svg';
+import Button from "../UI/Button/Button";
+import { Wrapper } from "./FeedbackForm.styled";
+import { yellowUp } from "../../assets/index";
 
 export const FeedbackForm = () => {
+  const [contactData, setContactData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (e, setState) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, message } = e.target.elements;
-    let conFom = {
-      name: name.value,
-      email: email.value,
-      message: message.value,
-    };
-    console.log(conFom);
-    await axios.post("http://localhost:3000/messages", conFom);
+
+    await axios.post("http://localhost:3000/messages", contactData);
+    setContactData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   return (
@@ -23,27 +37,33 @@ export const FeedbackForm = () => {
       <form onSubmit={onSubmit}>
         <div>
           <input
+            name="name"
+            value={contactData.name}
             className="form-control"
             type="text"
-            id="name"
+            onChange={(e) => handleChange(e, setContactData)}
             required
             placeholder="Your name*"
           />
         </div>
         <div>
           <input
+            name="email"
+            value={contactData.email}
             className="form-control"
             type="email"
-            id="email"
+            onChange={(e) => handleChange(e, setContactData)}
             required
             placeholder="Your email*"
           />
         </div>
         <div>
           <textarea
+            name="message"
+            value={contactData.message}
             className="form-control"
-            id="message"
             required
+            onChange={(e) => handleChange(e, setContactData)}
             placeholder="Your message*"
           />
         </div>
