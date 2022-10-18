@@ -1,13 +1,26 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: calc(100% - 150px);
   background-color: white;
   display: flex;
-  padding: 1rem 4rem;
 
   & > div {
-    flex: 1;
+    width: 50%;
+  }
+
+  @media (max-width: 976px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: center;
+
+    & > div {
+      width: 80%;
+    }
   }
 `;

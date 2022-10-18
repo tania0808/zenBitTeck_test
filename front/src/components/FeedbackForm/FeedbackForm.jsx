@@ -1,13 +1,26 @@
 import React from "react";
 import { Wrapper } from "./FeedbackForm.styled";
 import Button from "../UI/Button/Button";
+import axios from "axios";
 
 export const FeedbackForm = () => {
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const { name, email, message } = e.target.elements;
+    let conFom = {
+      name: name.value,
+      email: email.value,
+      message: message.value,
+    };
+    console.log(conFom);
+    await axios.post("http://localhost:3000/messages", conFom);
+  };
+
   return (
     <Wrapper>
       <h1>Reach out to us!</h1>
-      <form>
-        <div className="mb-3">
+      <form onSubmit={onSubmit}>
+        <div>
           <input
             className="form-control"
             type="text"
@@ -16,7 +29,7 @@ export const FeedbackForm = () => {
             placeholder="Your name*"
           />
         </div>
-        <div className="mb-3">
+        <div>
           <input
             className="form-control"
             type="email"
@@ -25,7 +38,7 @@ export const FeedbackForm = () => {
             placeholder="Your email*"
           />
         </div>
-        <div className="mb-3">
+        <div>
           <textarea
             className="form-control"
             id="message"
