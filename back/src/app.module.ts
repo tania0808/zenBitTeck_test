@@ -4,18 +4,24 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Message } from './contact/message.entity';
 import { MessageModule } from './contact/message.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3307,
-      username: 'root',
-      password: 'root',
-      database: 'zen_bit_tech_test',
-      entities: [Message],
-      synchronize: true,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get('DATABASE_PORT'),
+        username: configService.get('DATABASE_USERNAME'),
+        password: configService.get('DATABASE_PWD'),
+        database: configService.get('DATABASE_DB'),
+        entities: [Message],
+        synchronize: true,
+      }),
+      inject: [ConfigService],
     }),
     MessageModule,
   ],
